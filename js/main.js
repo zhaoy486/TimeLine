@@ -1,8 +1,12 @@
 var drawBox = function(items){
 	THREE.ImageUtils.crossOrigin = "";
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
+	//var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+   // camera
+    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.y = -45;
+    camera.position.z = 40;
+    camera.rotation.x = 45 * (Math.PI / 180);
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
@@ -20,8 +24,12 @@ var drawBox = function(items){
     var material = new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(proxyUrl)});
 	var cube = new THREE.Mesh( geometry, material );
 	scene.add( cube );
+	//plane
+	var plane = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), material);
+    plane.overdraw = true;
+    scene.add(plane);
 
-	camera.position.z = 5;
+	//camera.position.z = 5;
 	
 	function render() {
 		requestAnimationFrame(render);
