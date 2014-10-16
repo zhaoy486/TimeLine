@@ -16,7 +16,7 @@ var drawBox = function(items){
 	//console.log(items.currentImage.imageUrl);
 	THREE.ImageUtils.crossOrigin = "anonymous"
 	var proxyUrl="php/proxy.php?pic="+encodeURIComponent(items.currentImage.imageUrl);
-	console.log(proxyUrl);
+	//console.log(proxyUrl);
 	// var material = new THREE.MeshLambertMaterial({
 	//     //map: THREE.ImageUtils.loadTexture(proxyUrl)
 	//     map: THREE.ImageUtils.loadTexture({color: 0x00ff00})
@@ -50,11 +50,18 @@ var thisURL = "http://scrapi.org/search/spoon" ;
 		url : thisURL,
 		dataType : "json",
 		success : function(response) {
-			//loadWeather(response);	
+			//loadWeather(response);
+			//var objectURL=[];	
 			var objectURL=response.collection.items[0].href;
-	        console.log(objectURL);	
+			for (i=0; i<response.collection.items.length;i++)
+			{
+				console.log(response.collection.items[i].href);
+
+			
+	        //console.log(response.collection.items.length);	
 	        $.ajax({
-	        	url : objectURL,
+	        	//url : objectURL,
+	        	url:response.collection.items[i].href,
 	        	dataTypr:"json",
                 success:function(items){
                 drawBox(items);
@@ -64,6 +71,7 @@ var thisURL = "http://scrapi.org/search/spoon" ;
                //$('body').prepend($('<img>',{id:'theImg',src:proxyUrl}));
             }
 	        });	
+	    }
 		}
 	});
 
